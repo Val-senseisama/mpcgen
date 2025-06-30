@@ -390,7 +390,7 @@ async function extractProjectMetadata(): Promise<any> {
 }
 
 // --- 📝 ENHANCED OUTPUT WRITER ---
-async function main() {
+async function generateMCPManifest(): Promise<any> {
   console.log("🔍 Extracting tools and resources...");
   
   const [tools, resources, projectMetadata] = await Promise.all([
@@ -488,44 +488,31 @@ async function main() {
     }
   };
   
-  // Write the main manifest
-  fs.writeFileSync("mcp.generated.json", JSON.stringify(mcp, null, 2));
-  
-  // Write a human-readable summary
-  const summary = `# MCP Manifest Summary
+  mcp.description = `This project contains a Node.js + TypeScript backend and a React/React Native frontend. 
+  The tools were auto-extracted from exported functions in .ts and .tsx files, including APIs, utilities, and business logic. 
+  Resources were parsed from .sql files and represent real database tables. 
+  Function names follow conventions like get, create, update, and delete. 
+  Use these tools to build features, compose workflows, or query structured project data.`;
 
-Generated: ${new Date().toISOString()}
-Project: ${projectMetadata.name} v${projectMetadata.version}
+  return mcp;
+}
 
-## Statistics
-- **Tools**: ${tools.length}
-- **Resources**: ${resources.length}
-- **Categories**: ${Object.keys(toolsByCategory).length}
-
-## Tools by Category
-${Object.entries(toolsByCategory)
-  .map(([category, items]) => `- **${category}**: ${(items as any[]).length} tools`)
-  .join('\n')}
-
-## Resources
-${resources.map(r => `- **${r.name}** (${Object.keys(r.columns).length} columns)`).join('\n')}
-
-## Files Processed
-- TypeScript files: ${mcp.statistics.filesProcessed.typescript}
-- SQL files: ${mcp.statistics.filesProcessed.sql}
-`;
-
-mcp.description = `This project contains a Node.js + TypeScript backend and a React/React Native frontend. 
-The tools were auto-extracted from exported functions in .ts and .tsx files, including APIs, utilities, and business logic. 
-Resources were parsed from .sql files and represent real database tables. 
-Function names follow conventions like get, create, update, and delete. 
-Use these tools to build features, compose workflows, or query structured project data.`;
-
-  fs.writeFileSync("mcp.summary.md", summary);
-  
-  console.log("✅ MCP manifest written to mcp.generated.json");
-  console.log("📊 Summary written to mcp.summary.md");
-  console.log(`📈 Extracted ${tools.length} tools and ${resources.length} resources`);
+// --- 🚀 MAIN FUNCTION ---
+async function main() {
+  try {
+    const mcp = await generateMCPManifest();
+    
+    // Write the main manifest
+    fs.writeFileSync("mcp.generated.json", JSON.stringify(mcp, null, 2));
+    
+    console.log("✅ MCP manifest written to mcp.generated.json");
+    console.log(`📈 Extracted ${mcp.tools.length} tools and ${mcp.resources.length} resources`);
+    
+    return mcp;
+  } catch (error) {
+    console.error('❌ Error generating MCP manifest:', error);
+    throw error;
+  }
 }
 
 // Handle errors gracefully
@@ -539,6 +526,12 @@ process.on('unhandledRejection', (reason, promise) => {
   process.exit(1);
 });
 
-main().catch(console.error);
+// Default export for programmatic usage
+export default generateMCPManifest;
+
+// Run main function if this file is executed directly
+if (require.main === module) {
+  main().catch(console.error);
+}
 
 

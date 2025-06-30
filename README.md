@@ -20,12 +20,12 @@ This tool intelligently scans your TypeScript/JavaScript project and SQL files t
 - **Function Categorization**: Auto-categorizes functions by purpose and location
 - **Duplicate Prevention**: Prevents duplicate function extraction
 - **Framework Detection**: Automatically detects React, Vue, Angular, Express, NestJS, Next.js
-- **Enhanced Output**: Generates both JSON manifest and human-readable summary
+- **Programmatic API**: Can be used as a library or CLI tool
 
 ## 🚀 Installation
 
 ```bash
-npm install
+npm install mcp-generator
 ```
 
 ## 📦 Dependencies
@@ -36,12 +36,27 @@ npm install
 
 ## 🛠️ Usage
 
-### Basic Usage
+### CLI Usage
 
 ```bash
-npm start
-# or
-node index.ts
+# Install globally
+npm install -g mcp-generator
+
+# Run in any project directory
+mcp-generator
+```
+
+### Programmatic Usage
+
+```javascript
+import generateMCPManifest from 'mcp-generator';
+
+// Generate MCP manifest programmatically
+const mcp = await generateMCPManifest();
+console.log(`Found ${mcp.tools.length} tools and ${mcp.resources.length} resources`);
+
+// The function returns the MCP manifest object
+// You can customize the output or integrate it into your build process
 ```
 
 ### What it does
@@ -51,13 +66,11 @@ node index.ts
 3. **Parses SQL files** across multiple dialects to identify database schema
 4. **Analyzes project metadata** from package.json and framework detection
 5. **Generates comprehensive MCP manifest** as `mcp.generated.json`
-6. **Creates human-readable summary** as `mcp.summary.md`
 
-### Output Files
+### Output
 
-The tool generates two files:
+The tool generates a single `mcp.generated.json` file with the following structure:
 
-#### `mcp.generated.json` - Main Manifest
 ```json
 {
   "mcpVersion": "0.1.0",
@@ -127,24 +140,6 @@ The tool generates two files:
 }
 ```
 
-#### `mcp.summary.md` - Human-Readable Summary
-```markdown
-# MCP Manifest Summary
-
-Generated: 2024-01-01T00:00:00.000Z
-Project: my-project v1.0.0
-
-## Statistics
-- **Tools**: 25
-- **Resources**: 8
-- **Categories**: 6
-
-## Tools by Category
-- **data-access**: 10 tools
-- **api**: 5 tools
-- **utility**: 8 tools
-```
-
 ## 🔧 Advanced Function Detection
 
 The tool uses sophisticated pattern matching to categorize and describe functions:
@@ -195,6 +190,7 @@ The tool uses sophisticated pattern matching to categorize and describe function
 - **Development Workflows**: Enable AI-powered development assistance
 - **Database Schema Analysis**: Document and analyze database structure
 - **Team Onboarding**: Help new developers understand the codebase
+- **Build Process Integration**: Generate manifests as part of CI/CD pipelines
 
 ## 🔍 How it Works
 
@@ -240,8 +236,7 @@ mpcgen/
 ├── index.ts              # Main generator script
 ├── tsconfig.json         # TypeScript configuration
 ├── package.json          # Dependencies and scripts
-├── mcp.generated.json    # Generated MCP manifest
-├── mcp.summary.md        # Human-readable summary
+├── mcp.generated.json    # Generated MCP manifest (created after running)
 └── README.md            # This file
 ```
 
