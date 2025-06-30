@@ -16,7 +16,8 @@
     "resolveJsonModule": true
   },
   "include": [
-    "index.ts"
+    "index.ts",
+    "bin/**/*.ts"
   ],
   "exclude": [
     "node_modules",

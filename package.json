@@ -1,16 +1,16 @@
 {
   "name": "mcp-generator",
-  "version": "1.0.1",
+  "version": "1.0.7",
   "description": "A powerful Node.js tool that automatically generates comprehensive Model Context Protocol (MCP) manifests by extracting tools and resources from your codebase with advanced analysis capabilities.",
   "main": "dist/index.js",
   "bin": {
-    "mcp-generator": "./dist/index.js"
+    "mcp-generator": "./dist/bin/cli.js"
   },
   "type": "module",
   "scripts": {
     "build": "tsc",
     "dev": "tsc --watch",
-    "start": "node dist/index.js",
+    "start": "node dist/bin/cli.js",
     "generate": "npm run build && npm start",
     "clean": "rm -rf dist",
     "prepublishOnly": "npm run clean && npm run build"
@@ -23,7 +23,7 @@
     "ai-tools",
     "api-documentation"
   ],
-  "author": "David Val-Izevbig <valizevbigedavid@gmail.com>",
+  "author": "David Val-Izevbige <valizevbigiedavid@gmail.com>",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -35,7 +35,8 @@
   "dependencies": {
     "ts-morph": "^21.0.1",
     "fast-glob": "^3.3.2",
-    "sql-ddl-to-json-schema": "^1.0.0"
+    "sql-ddl-to-json-schema": "^1.0.0",
+    "commander": "^11.0.0"
   },
   "devDependencies": {
     "@types/node": "^20.10.0",

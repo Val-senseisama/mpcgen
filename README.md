@@ -20,12 +20,13 @@ This tool intelligently scans your TypeScript/JavaScript project and SQL files t
 - **Function Categorization**: Auto-categorizes functions by purpose and location
 - **Duplicate Prevention**: Prevents duplicate function extraction
 - **Framework Detection**: Automatically detects React, Vue, Angular, Express, NestJS, Next.js
+- **Flexible CLI**: Multiple commands and options for different use cases
 - **Programmatic API**: Can be used as a library or CLI tool
 
 ## 🚀 Installation
 
 ```bash
-npm install mcp-generator
+npm install -g mcp-generator
 ```
 
 ## 📦 Dependencies
@@ -33,6 +34,7 @@ npm install mcp-generator
 - `ts-morph`: Advanced TypeScript AST manipulation
 - `fast-glob`: Fast file globbing with ignore patterns
 - `sql-ddl-to-json-schema`: Multi-dialect SQL DDL parsing
+- `commander`: CLI framework for command-line interface
 
 ## 🛠️ Usage
 
@@ -42,8 +44,23 @@ npm install mcp-generator
 # Install globally
 npm install -g mcp-generator
 
-# Run in any project directory
+# Basic usage - generates mcp.generated.json and mcp.summary.md
 mcp-generator
+
+# Explicitly run generate command
+mcp-generator generate
+
+# Generate with custom output file
+mcp-generator generate --output custom-manifest.json
+
+# Generate without summary file
+mcp-generator generate --no-summary
+
+# Show project info without generating files
+mcp-generator info
+
+# Show help
+mcp-generator --help
 ```
 
 ### Programmatic Usage
@@ -66,11 +83,13 @@ console.log(`Found ${mcp.tools.length} tools and ${mcp.resources.length} resourc
 3. **Parses SQL files** across multiple dialects to identify database schema
 4. **Analyzes project metadata** from package.json and framework detection
 5. **Generates comprehensive MCP manifest** as `mcp.generated.json`
+6. **Creates human-readable summary** as `mcp.summary.md`
 
-### Output
+### Output Files
 
-The tool generates a single `mcp.generated.json` file with the following structure:
+The tool generates two files:
 
+#### `mcp.generated.json` - Main Manifest
 ```json
 {
   "mcpVersion": "0.1.0",
@@ -138,6 +157,28 @@ The tool generates a single `mcp.generated.json` file with the following structu
     }
   }
 }
+```
+
+#### `mcp.summary.md` - Human-Readable Summary
+```markdown
+# MCP Manifest Summary
+
+Generated: 2024-01-01T00:00:00.000Z
+Project: my-project v1.0.0
+
+## Statistics
+- **Tools**: 25
+- **Resources**: 8
+- **Categories**: 6
+
+## Tools by Category
+- **data-access**: 10 tools
+- **api**: 5 tools
+- **utility**: 8 tools
+
+## Resources
+- **users** (5 columns)
+- **products** (8 columns)
 ```
 
 ## 🔧 Advanced Function Detection
@@ -225,7 +266,7 @@ The tool uses sophisticated pattern matching to categorize and describe function
 - Only processes exported functions (not internal/private functions)
 - Skips functions starting with underscore (`_`) or hash (`#`)
 - Excludes test files and build artifacts
-- Requires TypeScript configuration (`tsconfig.json`)
+- Works without `tsconfig.json` but may have limited type information
 - SQL parsing may not handle complex stored procedures
 - JSDoc parsing is limited to basic comment extraction
 
@@ -234,9 +275,12 @@ The tool uses sophisticated pattern matching to categorize and describe function
 ```
 mpcgen/
 ├── index.ts              # Main generator script
+├── bin/
+│   └── cli.ts           # CLI interface using Commander.js
 ├── tsconfig.json         # TypeScript configuration
 ├── package.json          # Dependencies and scripts
 ├── mcp.generated.json    # Generated MCP manifest (created after running)
+├── mcp.summary.md        # Human-readable summary (created after running)
 └── README.md            # This file
 ```
 
@@ -257,6 +301,7 @@ This project is open source and available under the MIT License.
 - [Model Context Protocol (MCP)](https://modelcontextprotocol.io/)
 - [ts-morph](https://ts-morph.com/)
 - [sql-ddl-to-json-schema](https://github.com/duartealexf/sql-ddl-to-json-schema)
+- [Commander.js](https://github.com/tj/commander.js)
 
 ---
 
