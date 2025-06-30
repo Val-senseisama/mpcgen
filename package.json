@@ -1,6 +1,6 @@
 {
   "name": "mcp-generator",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "A powerful Node.js tool that automatically generates comprehensive Model Context Protocol (MCP) manifests by extracting tools and resources from your codebase with advanced analysis capabilities.",
   "main": "dist/index.js",
   "bin": {
@@ -23,11 +23,11 @@
     "ai-tools",
     "api-documentation"
   ],
-  "author": "David Val-Izevbige <valizevbigiedavid@gmail.com>",
+  "author": "David Val-Izevbigie <valizevbigiedavid@gmail.com>",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/val-senseisama/mcp-generator.git"
+    "url": "git+https://github.com/val-senseisama/mcpgen.git"
   },
   "engines": {
     "node": ">=16.0.0"
