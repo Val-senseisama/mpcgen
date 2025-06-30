@@ -530,7 +530,7 @@ process.on('unhandledRejection', (reason, promise) => {
 export default generateMCPManifest;
 
 // Run main function if this file is executed directly
-if (require.main === module) {
+if (process.argv[1] === new URL(import.meta.url).pathname) {
   main().catch(console.error);
 }
 
