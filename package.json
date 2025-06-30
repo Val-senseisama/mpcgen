@@ -1,0 +1,25 @@
+{
+  "name": "mpcgen",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "ts-node index.ts"
+  },
+  "bin": {
+    "mcpgen": "./index.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "fast-glob": "^3.3.3",
+    "sql-ddl-to-json-schema": "^5.0.0",
+    "ts-morph": "^26.0.0"
+  },
+  "devDependencies": {
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  }
+}
