@@ -27,7 +27,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/val-senseisama/mcpgen.git"
+    "url": "git+https://github.com/Val-senseisama/mpcgen"
   },
   "engines": {
     "node": ">=16.0.0"
