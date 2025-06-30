@@ -1,6 +1,6 @@
 {
   "name": "mcp-generator",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A powerful Node.js tool that automatically generates comprehensive Model Context Protocol (MCP) manifests by extracting tools and resources from your codebase with advanced analysis capabilities.",
   "main": "dist/index.js",
   "bin": {
